@@ -25,19 +25,19 @@ import org.xwiki.component.annotation.Role;
 import org.xwiki.extension.ExtensionId;
 
 @Role
-public interface SourceSynchIndex
+public interface SourceSyncIndex
 {
     /**
      * @return extensions found in configured sources
      */
-    Collection<SourceSynchExtension> getExtensions();
+    Collection<SourceSyncExtension> getExtensions();
 
     /**
      * @param extensionId the identifier of the extension
      * @return the entry containing information about the extension/source or null if this entry does not exist anymore
      *         (the extension does not match the source anymore)
      */
-    SourceSynchExtension getExtension(ExtensionId extensionId);
+    SourceSyncExtension getExtension(ExtensionId extensionId);
 
     /**
      * Force refreshing the index entry and return the new one (or the same if the descriptor did not changed).
@@ -45,5 +45,5 @@ public interface SourceSynchIndex
      * @param entry the current entry
      * @return the new entry (or the passed one if nothing changed), null if it does not match the extension id anymore
      */
-    SourceSynchExtension refreshExtension(SourceSynchExtension entry);
+    SourceSyncExtension refreshExtension(SourceSyncExtension entry);
 }

@@ -19,7 +19,7 @@
  */
 package org.xwiki.contrib.sourcesync;
 
-public class SourceSynchException extends Exception
+public class SourceSyncException extends Exception
 {
     /**
      * Serialization identifier.
@@ -32,7 +32,7 @@ public class SourceSynchException extends Exception
      *
      * @param message the detail message (which is saved for later retrieval by the {@link #getMessage()} method)
      */
-    public SourceSynchException(String message)
+    public SourceSyncException(String message)
     {
         super(message);
     }
@@ -42,7 +42,7 @@ public class SourceSynchException extends Exception
      *            value is permitted, and indicates that the cause is nonexistent or unknown.)
      * @since 9.3RC1
      */
-    public SourceSynchException(Throwable cause)
+    public SourceSyncException(Throwable cause)
     {
         super(cause);
     }
@@ -54,7 +54,7 @@ public class SourceSynchException extends Exception
      * @param cause the cause (which is saved for later retrieval by the {@link #getCause()} method). A null value is
      *            permitted, and indicates that the cause is nonexistent or unknown
      */
-    public SourceSynchException(String message, Throwable cause)
+    public SourceSyncException(String message, Throwable cause)
     {
         super(message, cause);
     }

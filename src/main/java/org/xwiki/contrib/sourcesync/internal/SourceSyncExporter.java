@@ -31,7 +31,7 @@ import javax.inject.Provider;
 import javax.inject.Singleton;
 
 import org.xwiki.component.annotation.Component;
-import org.xwiki.contrib.sourcesync.SourceSynchIndex;
+import org.xwiki.contrib.sourcesync.SourceSyncIndex;
 import org.xwiki.extension.ExtensionId;
 import org.xwiki.extension.repository.InstalledExtensionRepository;
 import org.xwiki.extension.xar.internal.handler.XarExtensionHandler;
@@ -84,7 +84,7 @@ public class SourceSyncExporter
     private InstalledExtensionRepository extensions;
 
     @Inject
-    private SourceSynchIndex index;
+    private SourceSyncIndex index;
 
     @Inject
     private Provider<XWikiContext> xcontextProvider;
@@ -96,7 +96,7 @@ public class SourceSyncExporter
 
     public Job exportExtension(ExtensionId extensionId)
     {
-
+        return null;
     }
 
     public void exportDocument(DocumentReference documentReference) throws FilterException, IOException, XWikiException
@@ -119,7 +119,7 @@ public class SourceSyncExporter
 
         XarInstalledExtension extension = extensions.iterator().next();
 
-        Path sourcePath = this.index.getSourcePath(extension.getId());
+        Path sourcePath = this.index.getExtension(extension.getId()).getPath();
 
         OutputStream outputStream = Files.newOutputStream(sourcePath);
         try (OutputStreamOutputTarget target = new DefaultOutputStreamOutputTarget(outputStream, true)) {

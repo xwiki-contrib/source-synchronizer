@@ -1,31 +1,19 @@
 package org.xwiki.contrib.sourcesync;
 
-import org.xwiki.observation.event.Event;
-
-public class SourceSyncDocumentUpdatedEvent implements Event
+public class SourceSyncDocumentUpdatedEvent extends AbstractSourceSyncDocumentEvent
 {
-    private SourceSynchDocument document;
-
     public SourceSyncDocumentUpdatedEvent()
     {
-
     }
 
-    public SourceSyncDocumentUpdatedEvent(SourceSynchDocument document)
+    public SourceSyncDocumentUpdatedEvent(SourceSyncDocument document)
     {
-        this.document = document;
-    }
-
-    public SourceSynchDocument getDocument()
-    {
-        return document;
+        setDocument(document);
     }
 
     @Override
     public boolean matches(Object otherEvent)
     {
-        // TODO: more filtering
-
         return otherEvent instanceof SourceSyncDocumentUpdatedEvent;
     }
 }

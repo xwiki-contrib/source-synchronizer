@@ -9,7 +9,7 @@ import org.xwiki.model.reference.LocalDocumentReference;
  * 
  * @version $Id$
  */
-public interface SourceSynchDocument
+public interface SourceSyncDocument
 {
     /**
      * @return the local reference of the document

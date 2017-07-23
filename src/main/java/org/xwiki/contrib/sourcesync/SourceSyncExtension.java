@@ -1,8 +1,8 @@
 package org.xwiki.contrib.sourcesync;
 
 import java.nio.file.Path;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 import org.xwiki.extension.ExtensionId;
 import org.xwiki.model.reference.LocalDocumentReference;
@@ -12,7 +12,7 @@ import org.xwiki.model.reference.LocalDocumentReference;
  * 
  * @version $Id$
  */
-public interface SourceSynchExtension
+public interface SourceSyncExtension
 {
     /**
      * @return the id of the matching extension
@@ -33,10 +33,10 @@ public interface SourceSynchExtension
      * @param documentReference the local reference of the document (including the locale for a translation)
      * @return the indexed information related to the sources of that document
      */
-    SourceSynchDocument getDocument(LocalDocumentReference documentReference);
+    SourceSyncDocument getDocument(LocalDocumentReference documentReference);
 
     /**
      * @return the documents found in that source
      */
-    List<SourceSynchDocument> getDocuments();
+    Collection<SourceSyncDocument> getDocuments();
 }
