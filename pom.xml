@@ -53,6 +53,11 @@
       <artifactId>xwiki-platform-oldcore</artifactId>
       <version>${platform.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.xwiki.platform</groupId>
+      <artifactId>xwiki-platform-extension-handler-xar</artifactId>
+      <version>${platform.version}</version>
+    </dependency>
   </dependencies>
 
   <developers>
