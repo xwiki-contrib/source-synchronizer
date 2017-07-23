@@ -19,7 +19,7 @@
  */
 package org.xwiki.contrib.sourcesync;
 
-import java.nio.file.Path;
+import java.util.Collection;
 
 import org.xwiki.component.annotation.Role;
 import org.xwiki.extension.ExtensionId;
@@ -28,16 +28,22 @@ import org.xwiki.extension.ExtensionId;
 public interface SourceSynchIndex
 {
     /**
-     * @param extensionId the identifier of the extension
-     * @return the path where the sources are located
+     * @return extensions found in configured sources
      */
-    Path getSourcePath(ExtensionId extensionId);
+    Collection<SourceSynchExtension> getExtensions();
 
     /**
-     * Make sure passed source path and extensionId matches.
-     * 
-     * @param sourcePath the path where the sources are located
      * @param extensionId the identifier of the extension
+     * @return the entry containing information about the extension/source or null if this entry does not exist anymore
+     *         (the extension does not match the source anymore)
      */
-    void checkSource(Path sourcePath, ExtensionId extensionId) throws SourceSynchException;
+    SourceSynchExtension getExtension(ExtensionId extensionId);
+
+    /**
+     * Force refreshing the index entry and return the new one (or the same if the descriptor did not changed).
+     * 
+     * @param entry the current entry
+     * @return the new entry (or the passed one if nothing changed), null if it does not match the extension id anymore
+     */
+    SourceSynchExtension refreshExtension(SourceSynchExtension entry);
 }

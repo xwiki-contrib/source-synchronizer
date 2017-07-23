@@ -19,30 +19,13 @@
  */
 package org.xwiki.contrib.sourcesync.internal;
 
-import java.io.File;
-import java.nio.file.Path;
-
 import javax.inject.Singleton;
 
 import org.xwiki.component.annotation.Component;
-import org.xwiki.contrib.sourcesync.SourceSynchException;
 import org.xwiki.contrib.sourcesync.SourceSynchIndex;
-import org.xwiki.extension.ExtensionId;
 
 @Component
 @Singleton
 public class DefaultSourceSynchIndex implements SourceSynchIndex
 {
-    @Override
-    public Path getSourcePath(ExtensionId extensionId)
-    {
-        return new File("/media/data/projets/xwiki/src/git/xwiki-platform/xwiki-platform-core/xwiki-platform-sandbox")
-            .toPath();
-    }
-
-    @Override
-    public void checkSource(Path sourcePath, ExtensionId extensionId) throws SourceSynchException
-    {
-        // TODO Auto-generated method stub
-    }
 }
