@@ -1,1 +1,1 @@
-org.xwiki.contrib.letsencrypt.internal.LetsEncryptRegisterListener
+org.xwiki.contrib.sourcesync.internal.DefaultSourceSynchIndex

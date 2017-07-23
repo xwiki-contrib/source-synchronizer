@@ -21,8 +21,10 @@ package org.xwiki.contrib.sourcesync;
 
 import java.nio.file.Path;
 
+import org.xwiki.component.annotation.Role;
 import org.xwiki.extension.ExtensionId;
 
+@Role
 public interface SourceSynchIndex
 {
     /**

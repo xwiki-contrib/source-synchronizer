@@ -22,10 +22,15 @@ package org.xwiki.contrib.sourcesync.internal;
 import java.io.File;
 import java.nio.file.Path;
 
+import javax.inject.Singleton;
+
+import org.xwiki.component.annotation.Component;
 import org.xwiki.contrib.sourcesync.SourceSynchException;
 import org.xwiki.contrib.sourcesync.SourceSynchIndex;
 import org.xwiki.extension.ExtensionId;
 
+@Component
+@Singleton
 public class DefaultSourceSynchIndex implements SourceSynchIndex
 {
     @Override
