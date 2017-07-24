@@ -58,6 +58,11 @@
       <artifactId>xwiki-platform-extension-handler-xar</artifactId>
       <version>${platform.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.xwiki.platform</groupId>
+      <artifactId>xwiki-platform-scheduler-api</artifactId>
+      <version>${platform.version}</version>
+    </dependency>
   </dependencies>
 
   <developers>
