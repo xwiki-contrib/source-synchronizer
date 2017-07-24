@@ -22,7 +22,6 @@ package org.xwiki.contrib.sourcesync.internal;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Collection;
 
 import javax.inject.Inject;
@@ -31,6 +30,8 @@ import javax.inject.Provider;
 import javax.inject.Singleton;
 
 import org.xwiki.component.annotation.Component;
+import org.xwiki.contrib.sourcesync.SourceSyncDocument;
+import org.xwiki.contrib.sourcesync.SourceSyncExtension;
 import org.xwiki.contrib.sourcesync.SourceSyncIndex;
 import org.xwiki.extension.ExtensionId;
 import org.xwiki.extension.repository.InstalledExtensionRepository;
@@ -111,7 +112,7 @@ public class SourceSyncExporter
     public void exportDocument(XWikiDocument document) throws FilterException, IOException
     {
         Collection<XarInstalledExtension> extensions =
-            getXarInstalledExtensionRepository().getXarInstalledExtensions(document.getDocumentReference());
+            getXarInstalledExtensionRepository().getXarInstalledExtensions(document.getDocumentReferenceWithLocale());
 
         if (extensions.isEmpty()) {
             return;
@@ -119,9 +120,11 @@ public class SourceSyncExporter
 
         XarInstalledExtension extension = extensions.iterator().next();
 
-        Path sourcePath = this.index.getExtension(extension.getId()).getPath();
+        SourceSyncExtension sourceExtension = this.index.getExtension(extension.getId());
+        SourceSyncDocument sourceDocument =
+            sourceExtension.getDocument(document.getDocumentReferenceWithLocale().getLocalDocumentReference());
 
-        OutputStream outputStream = Files.newOutputStream(sourcePath);
+        OutputStream outputStream = Files.newOutputStream(sourceDocument.getPath());
         try (OutputStreamOutputTarget target = new DefaultOutputStreamOutputTarget(outputStream, true)) {
             // Input
             DocumentInstanceInputProperties documentProperties = new DocumentInstanceInputProperties();

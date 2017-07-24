@@ -1,5 +1,6 @@
 package org.xwiki.contrib.sourcesync;
 
+import java.nio.file.Path;
 import java.util.Date;
 
 import org.xwiki.model.reference.LocalDocumentReference;
@@ -15,6 +16,11 @@ public interface SourceSyncDocument
      * @return the local reference of the document
      */
     LocalDocumentReference getReference();
+
+    /**
+     * @return the path of the actual source
+     */
+    Path getPath();
 
     /**
      * @return the date of the document (inside the file)

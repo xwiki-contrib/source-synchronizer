@@ -3,8 +3,8 @@ package org.xwiki.contrib.sourcesync.internal;
 import java.nio.file.Path;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.xwiki.contrib.sourcesync.SourceSyncDocument;
 import org.xwiki.contrib.sourcesync.SourceSyncExtension;
@@ -22,15 +22,15 @@ class DefaultSourceSyncExtension implements SourceSyncExtension
 
     private final Path path;
 
-    private Date date;
+    private Date descriptorDate;
 
-    private final Map<LocalDocumentReference, SourceSyncDocument> documents = new HashMap<>();
+    private final Map<LocalDocumentReference, SourceSyncDocument> documents = new ConcurrentHashMap<>();
 
     DefaultSourceSyncExtension(ExtensionId extensionId, Path path, Date date)
     {
         this.extensionId = extensionId;
         this.path = path;
-        this.date = date;
+        this.descriptorDate = date;
     }
 
     void addDocument(SourceSyncDocument document)
@@ -58,7 +58,7 @@ class DefaultSourceSyncExtension implements SourceSyncExtension
     @Override
     public Date getDescriptorDate()
     {
-        return date;
+        return descriptorDate;
     }
 
     @Override
