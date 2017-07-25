@@ -137,6 +137,7 @@ public class SourceSyncExporter
             xarProperties.setForceDocument(true);
             xarProperties.setTarget(target);
             xarProperties.setVerbose(false);
+            xarProperties.setPreserveVersion(false);
             BeanOutputFilterStream<XAROutputProperties> xarFilterStream =
                 ((BeanOutputFilterStreamFactory<XAROutputProperties>) this.xarOutputFilterStreamFactory)
                     .createOutputFilterStream(xarProperties);
@@ -158,6 +159,12 @@ public class SourceSyncExporter
             documentParameters = new FilterEventParameters();
             documentParameters.put(WikiDocumentFilter.PARAMETER_LOCALE, document.getDefaultLocale());
             xarFilter.beginWikiDocument(documentReference.getName(), documentParameters);
+
+            // Cleanup
+            XWikiDocument cleanDocument = document.clone();
+            cleanDocument.setVersion("1.1");
+            cleanDocument.setAuthorReference(new DocumentReference("xwiki", "XWiki", "Admin"));
+            cleanDocument.setContentAuthorReference(cleanDocument.getAuthorReference());
 
             // Document Locale events
             this.documentSerializer.write(document, xarFilterStream, documentProperties);
