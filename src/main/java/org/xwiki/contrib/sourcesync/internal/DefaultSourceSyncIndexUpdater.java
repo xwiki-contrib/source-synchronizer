@@ -1,11 +1,20 @@
 package org.xwiki.contrib.sourcesync.internal;
 
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
 
 import org.slf4j.Logger;
 import org.xwiki.component.annotation.Component;
@@ -94,8 +103,24 @@ public class DefaultSourceSyncIndexUpdater implements Runnable, SourceSyncIndexU
         } while (!this.shouldStop);
     }
 
-    private void indexPath(Path path)
+    private void indexPath(Path path) throws IOException
     {
+        Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException
+            {
+                //Files.newBufferedReader(file, Charset.defaultCharset());
+                if (file.getFileName().toString().endsWith(".pom")) {
+                    return processPomFile(file, attrs);
+                } else {
+                    return FileVisitResult.CONTINUE;
+                }
+            }
+        });
+    }
 
+    private FileVisitResult processPomFile(Path file, BasicFileAttributes attrs) throws IOException
+    {
+        return FileVisitResult.CONTINUE;
     }
 }
