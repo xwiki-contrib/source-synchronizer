@@ -60,7 +60,6 @@ import org.xwiki.model.reference.SpaceReference;
 import com.xpn.xwiki.XWikiContext;
 import com.xpn.xwiki.XWikiException;
 import com.xpn.xwiki.doc.XWikiDocument;
-import com.xpn.xwiki.internal.filter.XWikiDocumentFilterUtils;
 
 @Component(roles = SourceSyncExporter.class)
 @Singleton
@@ -78,11 +77,8 @@ public class SourceSyncExporter
     private EntityEventGenerator<XWikiDocument> documentSerializer;
 
     @Inject
-    private XWikiDocumentFilterUtils filterUtils;
-
-    @Inject
     @Named(XarExtensionHandler.TYPE)
-    private InstalledExtensionRepository extensions;
+    private InstalledExtensionRepository xarRepository;
 
     @Inject
     private SourceSyncIndex index;
@@ -92,7 +88,7 @@ public class SourceSyncExporter
 
     private XarInstalledExtensionRepository getXarInstalledExtensionRepository()
     {
-        return (XarInstalledExtensionRepository) this.extensions;
+        return (XarInstalledExtensionRepository) this.xarRepository;
     }
 
     public Job exportExtension(ExtensionId extensionId)
@@ -122,7 +118,7 @@ public class SourceSyncExporter
 
         SourceSyncExtension sourceExtension = this.index.getExtension(extension.getId());
         SourceSyncDocument sourceDocument =
-            sourceExtension.getDocument(document.getDocumentReferenceWithLocale().getLocalDocumentReference());
+            sourceExtension.getDocument(document.getDocumentReferenceWithLocale().getLocaleDocumentReference());
 
         OutputStream outputStream = Files.newOutputStream(sourceDocument.getPath());
         try (OutputStreamOutputTarget target = new DefaultOutputStreamOutputTarget(outputStream, true)) {
@@ -167,7 +163,7 @@ public class SourceSyncExporter
             cleanDocument.setContentAuthorReference(cleanDocument.getAuthorReference());
 
             // Document Locale events
-            this.documentSerializer.write(document, xarFilterStream, documentProperties);
+            this.documentSerializer.write(cleanDocument, xarFilterStream, documentProperties);
 
             // End document
             xarFilter.endWikiDocument(documentReference.getName(), documentParameters);
