@@ -17,22 +17,24 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.xwiki.contrib.sourcesync;
+package org.xwiki.contrib.sourcesync.internal;
 
-public class SourceSyncDocumentUpdatedEvent extends AbstractSourceSyncDocumentEvent
+import java.nio.file.Path;
+
+import org.xwiki.component.annotation.Role;
+import org.xwiki.contrib.sourcesync.SourceSyncIndex;
+
+/**
+ * Manipulate and maintain the {@link SourceSyncIndex}.
+ *
+ * @version $Id$
+ */
+@Role
+public interface SourceSyncIndexMonitor
 {
-    public SourceSyncDocumentUpdatedEvent()
-    {
-    }
+    void stopProcessing();
 
-    public SourceSyncDocumentUpdatedEvent(SourceSyncDocument document)
-    {
-        setDocument(document);
-    }
+    void addFolder(Path path);
 
-    @Override
-    public boolean matches(Object otherEvent)
-    {
-        return otherEvent instanceof SourceSyncDocumentUpdatedEvent;
-    }
+    void removeFolder(Path path);
 }

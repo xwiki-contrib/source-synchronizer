@@ -1,1 +1,5 @@
 org.xwiki.contrib.sourcesync.internal.DefaultSourceSyncIndex
+org.xwiki.contrib.sourcesync.internal.SourceSyncExporter
+org.xwiki.contrib.sourcesync.internal.SourceSyncImporter
+org.xwiki.contrib.sourcesync.internal.job.SourceSyncExportJob
+org.xwiki.contrib.sourcesync.internal.job.SourceSyncImportJob

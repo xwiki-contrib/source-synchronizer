@@ -20,8 +20,8 @@
 package org.xwiki.contrib.sourcesync.internal;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.inject.Singleton;
 
@@ -34,35 +34,34 @@ import org.xwiki.extension.ExtensionId;
 @Singleton
 public class DefaultSourceSyncIndex implements SourceSyncIndex
 {
-    private final Map<ExtensionId, SourceSyncExtension> extensions = new HashMap<>();
+    private final Map<ExtensionId, SourceSyncExtension> extensions = new ConcurrentHashMap<>();
 
     void addExtension(SourceSyncExtension extension)
     {
-        extensions.put(extension.getExtensionId(), extension);
+        this.extensions.put(extension.getExtensionId(), extension);
     }
 
     void removeExtension(ExtensionId extensionId)
     {
-        extensions.remove(extensionId);
+        this.extensions.remove(extensionId);
     }
-
 
     @Override
     public Collection<SourceSyncExtension> getExtensions()
     {
-        return extensions.values();
+        return this.extensions.values();
     }
 
     @Override
     public SourceSyncExtension getExtension(ExtensionId extensionId)
     {
-        return extensions.get(extensionId);
+        return this.extensions.get(extensionId);
     }
 
     @Override
     public SourceSyncExtension refreshExtension(SourceSyncExtension entry)
     {
         // TODO: refresh the extention
-        return extensions.get(entry.getExtensionId());
+        return this.extensions.get(entry.getExtensionId());
     }
 }

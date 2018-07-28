@@ -17,22 +17,23 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.xwiki.contrib.sourcesync;
+package org.xwiki.contrib.sourcesync.internal;
 
-public class SourceSyncDocumentUpdatedEvent extends AbstractSourceSyncDocumentEvent
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import org.xwiki.extension.repository.InstalledExtensionRepository;
+import org.xwiki.extension.xar.internal.handler.XarExtensionHandler;
+import org.xwiki.extension.xar.internal.repository.XarInstalledExtensionRepository;
+
+public class AbstractSourceSyncAction
 {
-    public SourceSyncDocumentUpdatedEvent()
-    {
-    }
+    @Inject
+    @Named(XarExtensionHandler.TYPE)
+    private InstalledExtensionRepository xarRepository;
 
-    public SourceSyncDocumentUpdatedEvent(SourceSyncDocument document)
+    private XarInstalledExtensionRepository getXarInstalledExtensionRepository()
     {
-        setDocument(document);
-    }
-
-    @Override
-    public boolean matches(Object otherEvent)
-    {
-        return otherEvent instanceof SourceSyncDocumentUpdatedEvent;
+        return (XarInstalledExtensionRepository) this.xarRepository;
     }
 }

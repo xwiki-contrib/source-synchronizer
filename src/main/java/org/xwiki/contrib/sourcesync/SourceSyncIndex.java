@@ -24,6 +24,11 @@ import java.util.Collection;
 import org.xwiki.component.annotation.Role;
 import org.xwiki.extension.ExtensionId;
 
+/**
+ * An index of the monitored extensions on the filesystem.
+ * 
+ * @version $Id$
+ */
 @Role
 public interface SourceSyncIndex
 {
